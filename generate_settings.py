@@ -18,7 +18,7 @@ def main():
   # for http_proxy
   http_proxy_url = os.getenv("http_proxy")
   if http_proxy_url:
-    match = re.search("http://(.+):(\d+)", http_proxy_url)
+    match = re.search(r"http://(.+):(\d+)", http_proxy_url)
     http_host, http_port = match.group(1), match.group(2)
     http_proxy_conf = create_proxy_config("http", http_host, http_port)
     proxy_confs += http_proxy_conf
@@ -26,7 +26,7 @@ def main():
   # for https_proxy
   https_proxy_url = os.getenv("https_proxy")
   if https_proxy_url:
-    match = re.search("http://(.+):(\d+)", https_proxy_url)
+    match = re.search(r"http://(.+):(\d+)", https_proxy_url)
     https_host, https_port = match.group(1), match.group(2)
     https_proxy_conf = create_proxy_config("http", https_host, https_port)
     proxy_confs += https_proxy_conf
@@ -37,13 +37,13 @@ def main():
   <proxies>
     {proxy_confs}
   </proxies>
-</proxies>
+</settings>
     """.lstrip())
   else:
     print(f"""
 <settings>
   <proxies/>
-</proxies>
+</settings>
     """.lstrip())
   
 if __name__ == "__main__":
